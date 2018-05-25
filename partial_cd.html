@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-md-12" ng-show="customers.length > 0">
+    
+    <nav class= "navbar navbar-default" role= "navigation" >
+    <div class= "navbar-header" >
+    <a class="btn btn-lg btn-success" href="#/edit-customer/0"><i class="glyphicon glyphicon-plus"></i>&nbsp;Add new CD</a>
+    </div>
+    </nav>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <th>Artist Name</th>
+                <th>Album Title</th>
+                <th>Album Catalog #</th>
+                <th>Release Year</th>
+                <th>Genre</th>
+                <th>Composer</th>
+                <th>Owner</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in cds.data">
+                <td>{{ item.artist_name}}</td>
+                <td>{{ item.album_title}}</td>
+                <td>{{ item.album_catalog_no}}</td>
+                <td>{{ item.release_year}}</td>
+                <td>{{ item.genre}}</td>
+                <td>{{ item.composer}}</td>
+                <td>{{ item.owner}}</td>
+                <td><a href="#/create-edit/{{item.id}}" class="btn    btn-warning">&nbsp;<i class=" glyphicon glyphicon-edit"></i>&nbsp; Edit </a> </td>    
+            </tr>
+             
+        </tbody>
+        </table>
+    </div>
+    <div class="col-md-12" ng-show="cd.length == 0">
+        <div class="col-md-12">
+            <h4>No CD found</h4>
+        </div>
+    </div>
+</div>
