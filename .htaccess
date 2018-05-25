@@ -1,0 +1,10 @@
+#RewriteEngine On
+#RewriteRule ^(.*)$ index.php?/$1 [L]
+#RewriteCond %{REQUEST_FILENAME} !-f
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule ^cds/?$ index.php [NC,L]
+RewriteRule ^cds/([0-9a-zA-Z]+)/?$ index.php?id=$1 [NC,L]
+
+</IfModule>
