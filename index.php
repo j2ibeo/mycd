@@ -65,29 +65,33 @@ switch ($verb) {
 		$data = json_decode(file_get_contents('php://input'), true);
 
 		//check if data exists
-		
-		$data['id'] = intval($_GET['id']);
-		if ($cd->isValid($data['id'])) {
-			try {
-				$response = $cd->update($data);
-				http_response_code(200);
-				echo   json_encode(['status' => 'OK', 'uri' => $response]);
-				exit;	
-			} catch (\Exception $e) {
-				http_response_code(400);
-			    header("Content-Type: application/problem+json; charset=UTF-8");
-			    echo   json_encode(['status' => 'Bad Request', 'uri' => $response]);
-				exit; 
+		if (isset($_GET['id'])) {
+			$data['id'] = intval($_GET['id']);
+			if ($cd->isValid($data['id'])) {
+				try {
+					$response = $cd->update($data);
+					http_response_code(200);
+					echo   json_encode(['status' => 'OK', 'uri' => $response]);
+					exit;	
+				} catch (\Exception $e) {
+					http_response_code(400);
+				    header("Content-Type: application/problem+json; charset=UTF-8");
+				    echo   json_encode(['status' => 'Bad Request', 'uri' => $response]);
+					exit; 
+				}
+				
+
 			}
-			
 
+
+			// id not found
+			http_response_code(404);
+		    header("Content-Type: application/problem+json; charset=UTF-8");
+		    echo   json_encode(['status' => 'Bad Request', 'uri' => $id]);
+			exit;
 		}
-
-		// id not found
-		http_response_code(404);
-	    header("Content-Type: application/problem+json; charset=UTF-8");
-	    echo   json_encode(['status' => 'Bad Request', 'uri' => $id]);
-		exit; 
+			 
+		http_response_code(405);
 		break;
 
 	case 'DELETE':
@@ -100,7 +104,7 @@ switch ($verb) {
 			 
 			try {
 				$response = $cd->delete($id);
-				var_dump($response);
+				 
 				http_response_code(204);
 				echo   json_encode(['status' => 'OK', 'data' => $response]);
 				exit;	
